@@ -1,11 +1,6 @@
-fn main(x: u64, y: pub u64) {
-    assert(x != y);
-}
+mod utils;
 
-#[test]
-fn test_main() {
-    main(1, 2);
-
-    // Uncomment to make test fail
-    // main(1, 1);
+fn main(given: pub [[u8; 4]; 4], solution: [[u8; 4]; 4]) {
+    utils::check_question(given, solution);
+    utils::is_valid_solution(solution);
 }
