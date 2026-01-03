@@ -1,0 +1,21 @@
+{
+  "name": "tiny-app",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@aztec/bb.js": "^3.0.0-nightly.20251104",
+    "@noir-lang/noir_js": "^1.0.0-beta.15"
+  },
+  "devDependencies": {
+    "buffer": "^6.0.3",
+    "vite": "^7.2.0",
+    "vite-plugin-node-polyfills": "^0.24.0"
+  }
+}
