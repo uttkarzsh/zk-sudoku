@@ -1,24 +1,9 @@
 import { useWriteContract } from "wagmi";
-import { generateProof } from "../sudoku/generateProof";
 import { abi } from "../abi";
 
 type Props = {
   given: number[][],
   solution: number[][]
-}
-
-export function uint8ArrayToHex(buffer: Uint8Array): string {
-  const hex: string[] = [];
-
-  buffer.forEach(function (i) {
-    let h = i.toString(16);
-    if (h.length % 2) {
-      h = "0" + h;
-    }
-    hex.push(h);
-  });
-
-  return hex.join("");
 }
 
 function fieldToBytes32(field: string): `0x${string}` {
@@ -30,16 +15,36 @@ const Verify = ({given, solution}: Props) => {
   const writeContract = useWriteContract();
 
   const handleSubmit = async () => {
-    const {proof, publicInputs} = await generateProof(given, solution);
+  
+    const res = await fetch("http://localhost:3001/prove", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({given, solution }),
+      });
 
-    await writeContract.mutate({
+    if (!res.ok) {
+        throw new Error("Request failed");
+    }
+    
+    const data = await res.json();
+
+    console.log(data.proof);
+    console.log(data.publicInputs.map(fieldToBytes32));
+    
+    try {
+    writeContract.mutate({
       abi, 
-      address: `0x78e29C00d96a5609f6D8CDb538972863178AaB8b`,
+      address: `0x6fC33849beE06e8153b5071d5ab097A6ccEAaE55`,
       functionName: "correctGuess",
-      args: [uint8ArrayToHex(proof), publicInputs.map(fieldToBytes32)]
+      args: [data.proof, data.publicInputs.map(fieldToBytes32)]
     });
 
     console.log("yay");
+    } catch(error){
+      console.error;
+    }
   }
 
 

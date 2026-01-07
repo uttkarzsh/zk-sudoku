@@ -26,10 +26,10 @@ contract Sudoku {
         if(!s_verifier.verify(_proof, _publicInputs)){
             revert Sudoku__InvalidGuess();
         }
-        if(usdc.balanceOf(address(this)) <= 1e9){
+        if(usdc.balanceOf(address(this)) <= 1000){
             revert Sudoku__InsufficientUSDC();
         }
-        bool ok = usdc.transfer(msg.sender, 1e9);
+        bool ok = usdc.transfer(msg.sender, 1000);
         if(!ok){
             revert Sudoku__USDCTransferFailed();
         }

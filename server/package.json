@@ -1,21 +1,24 @@
 {
-  "name": "tiny-app",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
   "author": "",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "@aztec/bb.js": "^3.0.0-nightly.20251104",
-    "@noir-lang/noir_js": "^1.0.0-beta.15"
+    "@noir-lang/noir_js": "^1.0.0-beta.15",
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
-    "buffer": "^6.0.3",
-    "vite": "^7.2.0",
-    "vite-plugin-node-polyfills": "^0.24.0"
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "typescript": "^5.9.3"
   }
 }
