@@ -1,6 +1,6 @@
 import { Noir, type CompiledCircuit } from "@noir-lang/noir_js";
 import { UltraHonkBackend } from "@aztec/bb.js";
-import circuit from "../circuits/target/circuits.json";
+import circuit from "../../circuits/target/circuits.json";
 
 export async function generateProof(given: number[][], solution: number[][]): Promise<{proof: Uint8Array, publicInputs: string[]}>{
     const noir = new Noir(circuit as CompiledCircuit);
@@ -13,7 +13,8 @@ export async function generateProof(given: number[][], solution: number[][]): Pr
 
     const {witness} = await noir.execute(inputs);
 
-    const {proof, publicInputs} = await backend.generateProof(witness);
+    const {proof, publicInputs} = await backend.generateProof(witness, {keccak: true});
+    console.log(publicInputs);
 
     return {proof, publicInputs}
 }

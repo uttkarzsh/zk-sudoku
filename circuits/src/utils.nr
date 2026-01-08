@@ -1,11 +1,9 @@
 pub fn check_question(given: [[u8; 4]; 4], solution: [[u8; 4]; 4]){
     for r in 0..4{
         for c in 0..4{
-            if given[r][c] != 0 {
-                assert(given[r][c] >= 1);
-                assert(given[r][c] <= 4);
-                assert_eq(given[r][c], solution[r][c]);
-            }
+            let g = given[r][c] as Field;
+            let s = solution[r][c] as Field;
+            assert(g * (g - s) == 0);
         }
     }
 }
