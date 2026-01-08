@@ -8,6 +8,7 @@ const Verify = ({ given, solution, onStatus }: Props) => {
   const handleSubmit = async () => {
     try {
       onStatus("proving");
+      console.log("Generating Proof. Please wait.");
       const res = await fetch("https://zk-sudoku-prover.onrender.com/prove", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -15,6 +16,8 @@ const Verify = ({ given, solution, onStatus }: Props) => {
       });
 
       if (!res.ok) throw new Error("Prover failed");
+      if (res.ok) console.log("Proof Generated. Now Verifying.");
+
 
       const data = await res.json();
       onStatus("verifying");
@@ -32,6 +35,7 @@ const Verify = ({ given, solution, onStatus }: Props) => {
       const result = await verification.json();
 
       onStatus(result.result ? "success" : "failure"); 
+      console.log("Proof Verified. Verification result:", result.result);
     } catch (err) {
       console.error(err);
       onStatus("failure");
