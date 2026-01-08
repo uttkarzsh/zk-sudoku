@@ -3,12 +3,12 @@ type Props = {
   solution: number[][];
   onStatus: (s: "proving" | "verifying" | "success" | "failure") => void;
 };
-  
+
 const Verify = ({ given, solution, onStatus }: Props) => {
   const handleSubmit = async () => {
     try {
       onStatus("proving");
-      const res = await fetch("http://localhost:3001/prove", {
+      const res = await fetch("https://zk-sudoku-prover.onrender.com/prove", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ given, solution }),
@@ -18,7 +18,7 @@ const Verify = ({ given, solution, onStatus }: Props) => {
 
       const data = await res.json();
       onStatus("verifying");
-      const verification = await fetch("http://localhost:3002/verify", {
+      const verification = await fetch("https://zk-sudoku-verifier.onrender.com/verify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
