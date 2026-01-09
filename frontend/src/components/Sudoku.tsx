@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { FaGithub } from "react-icons/fa";
 import { generatePuzzle } from "../sudoku/logic";
 import GeneratePuzzle from "./GeneratePuzzle";
 import Verify from "./Verify";
@@ -98,6 +99,25 @@ export default function Sudoku() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-neutral-900 to-black">
+      <div className="fixed top-6 right-6 z-50">
+  <a
+    href="https://github.com/uttkarzsh/zk-sudoku"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="
+      flex items-center gap-2
+      px-3 py-1.5
+      text-xs
+      border border-white/80
+      text-white
+      hover:bg-white hover:text-black
+      transition-colors
+    "
+  >
+    <FaGithub className="text-sm" />
+    GitHub
+  </a>
+</div>
       <h1 className="
         text-3xl sm:text-4xl
         font-mono font-bold
@@ -115,6 +135,7 @@ export default function Sudoku() {
                   ref={el => {inputRefs.current[r][c] = el}}
                   key={`${r}-${c}`}
                   value={cell ?? ""}
+                  readOnly
                   onKeyDown={e => handleKeyDown(r, c, e)}
                   disabled={givenGrid[r][c] !== null}
                   className={`
